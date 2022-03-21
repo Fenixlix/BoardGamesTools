@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">BoardGamesTools</string>
+    <string name="tossDice">Toss Dice</string>
+    <string name="numOfDice">Number of dices to roll</string>
+    <string name="game_visual_description">Game Visual Description</string>
+    <string name="addButton">Add Player</string>
+    <string name="player_name">Player name…</string>
+    <string name="backToGame">Return to the game</string>
+    <string name="score">Score</string>
+    <string name="new_players">New Players</string>
+    <string name="end_game">End Game</string>
+    <string name="delete">Delete</string>
+    <string name="reset_score">Reset score</string>
+
+    <string name="no_player_to_reset">There is no players to be reset</string>
+    <string name="round">Round #%1$d</string>
+    <string name="confirm_screen_delete">Are you sure to delete the player: %1$s</string>
+    <string name="cancel">Cancel</string>
+    <string name="modify">Modify</string>
+    <string name="turn_points">Turn Points</string>
+    <string name="combo_points">Combo Points</string>
+    <string name="punish_points">Punish Points</string>
+    <string name="finish_round">Finish Round</string>
+    <string name="pass_turn">Pass Turn</string>
+    <string name="next_round">Next Round</string>
+    <string name="add">Add</string>
+
+    <string-array name="sp_penalties_options">
+        <item>0</item>
+        <item>5</item>
+        <item>10</item>
+        <item>25</item>
+    </string-array>
+
+    <string-array name="sp_turn_options">
+        <item>"0"</item>
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+        <item>"5"</item>
+        <item>"6"</item>
+        <item>"7"</item>
+        <item>"8"</item>
+        <item>"9"</item>
+        <item>"10"</item>
+        <item>"11"</item>
+        <item>"12"</item>
+        <item>"13"</item>
+        <item>"14"</item>
+        <item>"15"</item>
+    </string-array>
+
+    <string-array name="sp_bonus_options">
+        <item>0</item>
+        <item>30</item>
+        <item>40</item>
+        <item>80</item>
+        <item>120</item>
+    </string-array>
+</resources>
