@@ -1,12 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-kapt'
 }
+apply plugin: "kotlin-kapt"
 
 android {
     compileSdkVersion 31
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.boardgamestools"
@@ -31,9 +31,10 @@ android {
     }
 
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
-
     packagingOptions {
-        exclude 'META-INF/atomicfu.kotlin_module'
+        resources {
+            excludes += ['META-INF/atomicfu.kotlin_module']
+        }
     }
 
     buildFeatures{
@@ -66,7 +67,7 @@ dependencies {
     implementation "com.google.android.material:material:$rootProject.materialVersion"
 
     // Testing
-    testImplementation "junit:junit:$rootProject.junitVersion"
+    testImplementation "junit:junit:4.13.2"
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
     androidTestImplementation ("androidx.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
