@@ -10,11 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BoardGamesTools">
-        <activity android:name=".view.ManyCounters"></activity>
+        <activity android:name=".view.ManyCounters" />
         <activity android:name=".view.ModifyPlayer" />
         <activity android:name=".view.Triomino" />
-        <activity android:name=".view.NewPlayer" />
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.Players" />
+        <activity android:name=".view.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

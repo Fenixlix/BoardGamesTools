@@ -3,13 +3,8 @@ package com.example.boardgamestools.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ListAdapter
-import androidx.appcompat.app.AlertDialog
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.boardgamestools.databinding.ActivityMainBinding
 import com.example.boardgamestools.model.IntentTags
-import com.example.boardgamestools.model.recyclerComponents.GamesListAdapter
-import com.example.boardgamestools.model.tempData
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,13 +16,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnTriomino.setOnClickListener {
-            val intent = Intent(this, Triomino::class.java)
+            val intent = Intent(this, Players::class.java)
             intent.putExtra(IntentTags.GAME.toStr,IntentTags.TRIOMINO.toStr)
             startActivity(intent)
         }
 
         binding.btnNewPlayer.setOnClickListener {
-            val intent = Intent(this, NewPlayer::class.java)
+            val intent = Intent(this, Players::class.java)
             startActivity(intent)
         }
 
