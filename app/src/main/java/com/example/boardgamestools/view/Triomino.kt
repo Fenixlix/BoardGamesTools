@@ -10,23 +10,19 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boardgamestools.R
 import com.example.boardgamestools.databinding.ActivityTriominoBinding
-import com.example.boardgamestools.model.GameApplication
 import com.example.boardgamestools.model.IntentTags
 import com.example.boardgamestools.model.Position
 import com.example.boardgamestools.model.listViewComponents.PlayerListAdapter
 import com.example.boardgamestools.model.listViewComponents.RecyclerClickInterface
 import com.example.boardgamestools.model.roomData.PlayerEntity
 import com.example.boardgamestools.viewmodel.PlayerViewModel
-import com.example.boardgamestools.viewmodel.PlayerViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class Triomino : AppCompatActivity() , RecyclerClickInterface{
     private lateinit var binding : ActivityTriominoBinding
 
-    private val playerViewModel : PlayerViewModel by viewModels{
-        PlayerViewModelFactory((application as GameApplication).repository)
-    }
-    // Esta es otra forma de hacer lo mismo que arriba y Game aplication es usado para poder tener una referencia a repository
-    //private val plvm = ViewModelProvider(this, PlayerViewModelFactory((application as GameApplication).repository))
+    private val playerViewModel : PlayerViewModel by viewModels()
 
     private lateinit var totalPlayers : List<PlayerEntity>
 
@@ -181,7 +177,6 @@ class Triomino : AppCompatActivity() , RecyclerClickInterface{
     }
 
     private fun restPiecesScoreMessage(){
-        // todo: aqui voy a añadir el codigo para lanzar un alert dialog para ingresar el valor de  las piesas residuales
         val extraPoints : ArrayList<Int> = ArrayList()
         var total = 0
         val titleText = "Round #${playerViewModel.round} end phase"

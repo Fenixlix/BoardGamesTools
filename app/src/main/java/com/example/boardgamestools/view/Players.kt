@@ -10,20 +10,18 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boardgamestools.R
 import com.example.boardgamestools.databinding.ActivityNewPlayerBinding
-import com.example.boardgamestools.model.GameApplication
 import com.example.boardgamestools.model.IntentTags
 import com.example.boardgamestools.model.listViewComponents.PlayerListAdapter
 import com.example.boardgamestools.model.listViewComponents.RecyclerClickInterface
 import com.example.boardgamestools.model.roomData.PlayerEntity
 import com.example.boardgamestools.viewmodel.PlayerViewModel
-import com.example.boardgamestools.viewmodel.PlayerViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class Players : AppCompatActivity() , RecyclerClickInterface {
     private lateinit var binding : ActivityNewPlayerBinding
 
-    private val playerViewModel : PlayerViewModel by viewModels{
-        PlayerViewModelFactory((application as GameApplication).repository)
-    }
+    private val playerViewModel : PlayerViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

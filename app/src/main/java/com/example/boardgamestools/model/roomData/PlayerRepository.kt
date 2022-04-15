@@ -2,8 +2,11 @@ package com.example.boardgamestools.model.roomData
 
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class PlayerRepository(private val playerDAO: PlayerDAO) {
+class PlayerRepository @Inject constructor(
+    private val playerDAO: PlayerDAO
+    ) {
 
     val allPlayers : Flow<List<PlayerEntity>> = playerDAO.getAll()
 

@@ -11,18 +11,16 @@ import androidx.lifecycle.Observer
 
 import com.example.boardgamestools.R
 import com.example.boardgamestools.databinding.ActivityModifyPlayerBinding
-import com.example.boardgamestools.model.GameApplication
 import com.example.boardgamestools.model.IntentTags
 import com.example.boardgamestools.model.roomData.PlayerEntity
 import com.example.boardgamestools.viewmodel.PlayerViewModel
-import com.example.boardgamestools.viewmodel.PlayerViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ModifyPlayer : AppCompatActivity() {
 
     private lateinit var binding : ActivityModifyPlayerBinding
-    private val playerViewModel : PlayerViewModel  by viewModels{
-        PlayerViewModelFactory((application as GameApplication).repository)
-    }
+    private val playerViewModel : PlayerViewModel  by viewModels()
 
     private lateinit var toModifyPlayer : PlayerEntity
 

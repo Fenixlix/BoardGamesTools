@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'dagger.hilt.android.plugin'
 }
 apply plugin: "kotlin-kapt"
 
@@ -56,6 +57,10 @@ dependencies {
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+
+    // Dagger hilt
+    implementation "com.google.dagger:hilt-android:$daggerhilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$daggerhilt_version"
 
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
