@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 
 import com.example.boardgamestools.R
 import com.example.boardgamestools.databinding.ActivityModifyPlayerBinding
-import com.example.boardgamestools.model.IntentTags
+import com.example.boardgamestools.model.utilities.IntentTags
 import com.example.boardgamestools.model.roomData.PlayerEntity
 import com.example.boardgamestools.viewmodel.PlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.example.boardgamestools.model.listViewComponents
+package com.example.boardgamestools.model.playerListComponents
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -9,8 +9,9 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boardgamestools.R
+import com.example.boardgamestools.model.utilities.ListClickInterface
 
-class PlayerListViewHolder(itemView : View, private val recyclerClickInterface: RecyclerClickInterface) : RecyclerView.ViewHolder(itemView) {
+class PlayerListViewHolder(itemView : View, private val listClickInterface: ListClickInterface) : RecyclerView.ViewHolder(itemView) {
 
     private val playerName : TextView = itemView.findViewById(R.id.tv_playerName)
     private val playerScore : TextView = itemView.findViewById(R.id.tv_playerScore)
@@ -21,13 +22,10 @@ class PlayerListViewHolder(itemView : View, private val recyclerClickInterface: 
 
         itemView.setOnClickListener {
             val confirmationScreenBuilder = AlertDialog.Builder(it.context)
-            //val confirmationScreenView = LayoutInflater.inflate(R.id.asfasf) para hacer con vista personalizada
-            //confirmationScreenBuilder.setView(confirmationScreenView)
             confirmationScreenBuilder.setTitle("Modify?")
             confirmationScreenBuilder.setMessage("Are you sure to modify the player: $name")
             confirmationScreenBuilder.setPositiveButton("Yes", DialogInterface.OnClickListener { _, _ ->
-                // creo saber que es lo que estoy haciendo
-                if (adapterPosition !=ListView.INVALID_POSITION) recyclerClickInterface.onClick(adapterPosition)
+                if (adapterPosition !=ListView.INVALID_POSITION) listClickInterface.onClick(adapterPosition)
             })
             confirmationScreenBuilder.setNegativeButton("No", DialogInterface.OnClickListener { _, _ ->  })
             confirmationScreenBuilder.create().show()
@@ -35,10 +33,10 @@ class PlayerListViewHolder(itemView : View, private val recyclerClickInterface: 
     }
 
     companion object{
-        fun create(parent: ViewGroup, recyclerClickInterface: RecyclerClickInterface) : PlayerListViewHolder{
+        fun create(parent: ViewGroup, listClickInterface: ListClickInterface) : PlayerListViewHolder{
             val view : View = LayoutInflater.from(parent.context)
                 .inflate(R.layout.player_list_item,parent,false)
-            return PlayerListViewHolder(view, recyclerClickInterface )
+            return PlayerListViewHolder(view, listClickInterface )
         }
     }
 }

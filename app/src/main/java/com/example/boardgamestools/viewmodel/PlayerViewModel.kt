@@ -2,11 +2,9 @@ package com.example.boardgamestools.viewmodel
 
 import androidx.lifecycle.*
 import com.example.boardgamestools.model.roomData.PlayerEntity
-import com.example.boardgamestools.model.roomData.PlayerRepository
+import com.example.boardgamestools.model.repository.PlayerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.launch
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 @HiltViewModel

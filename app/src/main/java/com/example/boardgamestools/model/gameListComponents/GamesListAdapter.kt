@@ -1,19 +1,22 @@
-package com.example.boardgamestools.model.recyclerComponents
+package com.example.boardgamestools.model.gameListComponents
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.example.boardgamestools.model.roomData.Game
+import com.example.boardgamestools.model.utilities.Game
+import com.example.boardgamestools.model.utilities.ListClickInterface
 
-class GamesListAdapter : ListAdapter<Game, GamesViewHolder>(GamesComparator()) {
+class GamesListAdapter(listClickInterface: ListClickInterface) : ListAdapter<Game, GamesViewHolder>(GamesComparator()) {
+
+    private val recyclerClickI = listClickInterface
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GamesViewHolder {
-        return GamesViewHolder.create(parent)
+        return GamesViewHolder.create(parent, recyclerClickI)
     }
 
     override fun onBindViewHolder(holder: GamesViewHolder, position: Int) {
-        val current = getItem(position)
-        holder.bind(current.name)
+        val currentGame = getItem(position)
+        holder.bind(currentGame)
     }
 
     class GamesComparator : DiffUtil.ItemCallback<Game>() {

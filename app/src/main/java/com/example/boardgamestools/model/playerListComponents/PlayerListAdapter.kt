@@ -1,13 +1,14 @@
-package com.example.boardgamestools.model.listViewComponents
+package com.example.boardgamestools.model.playerListComponents
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.boardgamestools.model.roomData.PlayerEntity
+import com.example.boardgamestools.model.utilities.ListClickInterface
 
-class PlayerListAdapter(recyclerClickInterface: RecyclerClickInterface) : ListAdapter<PlayerEntity,PlayerListViewHolder>(PlayersComparator()){
+class PlayerListAdapter(listClickInterface: ListClickInterface) : ListAdapter<PlayerEntity,PlayerListViewHolder>(PlayersComparator()){
 
-    private val recyclerClickI = recyclerClickInterface
+    private val recyclerClickI = listClickInterface
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerListViewHolder {
         return PlayerListViewHolder.create(parent, recyclerClickI)
@@ -24,7 +25,6 @@ class PlayerListAdapter(recyclerClickInterface: RecyclerClickInterface) : ListAd
         }
 
         override fun areContentsTheSame(oldItem: PlayerEntity, newItem: PlayerEntity): Boolean {
-
             return (oldItem.name == newItem.name && oldItem.score == newItem.score)
         }
     }

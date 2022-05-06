@@ -3,12 +3,16 @@ package com.example.boardgamestools.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.boardgamestools.databinding.ActivityMainBinding
-import com.example.boardgamestools.model.IntentTags
+import com.example.boardgamestools.model.gameListComponents.GamesListAdapter
+import com.example.boardgamestools.model.utilities.IntentTags
+import com.example.boardgamestools.model.utilities.Games
+import com.example.boardgamestools.model.utilities.ListClickInterface
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() , ListClickInterface{
 
     private lateinit var binding : ActivityMainBinding
 
@@ -17,17 +21,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnTriomino.setOnClickListener {
-            val intent = Intent(this, Players::class.java)
-            intent.putExtra(IntentTags.GAME.toStr,IntentTags.TRIOMINO.toStr)
-            startActivity(intent)
-        }
+        val adapter = GamesListAdapter(this)
+        adapter.submitList(Games.listOfGames)
+        binding.rvGameRList.adapter = adapter
+        binding.rvGameRList.layoutManager = GridLayoutManager(this, 2)
 
-        binding.btnNewPlayer.setOnClickListener {
-            val intent = Intent(this, Players::class.java)
-            startActivity(intent)
-        }
+    }
 
+    override fun onClick(position: Int) {
+        val intent = Intent(this, Games.listOfGames[0].direction)
+        if ( position >0 ) intent.putExtra(IntentTags.GAME.toStr,position)
+        startActivity(intent)
     }
 
 }

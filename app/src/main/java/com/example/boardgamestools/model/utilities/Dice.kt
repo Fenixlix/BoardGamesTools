@@ -1,4 +1,4 @@
-package com.example.boardgamestools.model
+package com.example.boardgamestools.model.utilities
 
 class Dice (private val typeOfDice : DiceType = DiceType.D6) {
 

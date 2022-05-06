@@ -10,16 +10,16 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boardgamestools.R
 import com.example.boardgamestools.databinding.ActivityTriominoBinding
-import com.example.boardgamestools.model.IntentTags
-import com.example.boardgamestools.model.Position
-import com.example.boardgamestools.model.listViewComponents.PlayerListAdapter
-import com.example.boardgamestools.model.listViewComponents.RecyclerClickInterface
+import com.example.boardgamestools.model.utilities.IntentTags
+import com.example.boardgamestools.model.utilities.TriominoRanks
+import com.example.boardgamestools.model.playerListComponents.PlayerListAdapter
+import com.example.boardgamestools.model.utilities.ListClickInterface
 import com.example.boardgamestools.model.roomData.PlayerEntity
 import com.example.boardgamestools.viewmodel.PlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class Triomino : AppCompatActivity() , RecyclerClickInterface{
+class Triomino : AppCompatActivity() , ListClickInterface {
     private lateinit var binding : ActivityTriominoBinding
 
     private val playerViewModel : PlayerViewModel by viewModels()
@@ -118,7 +118,7 @@ class Triomino : AppCompatActivity() , RecyclerClickInterface{
     private fun updatePlayer(player: PlayerEntity){
         binding.tvCurrentPlayerName.text = player.name
         binding.tvCurrentPlayerScore.text = player.score.toString()
-        val positionGraf = Position.getPosition(firstPlaceScore,secondPlaceScore,thirdPlaceScore,player.score).positionGraf
+        val positionGraf = TriominoRanks.getPosition(firstPlaceScore,secondPlaceScore,thirdPlaceScore,player.score).positionGraf
         binding.ivRanking.setImageResource(positionGraf)
     }
 

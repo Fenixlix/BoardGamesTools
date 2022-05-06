@@ -10,15 +10,16 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boardgamestools.R
 import com.example.boardgamestools.databinding.ActivityNewPlayerBinding
-import com.example.boardgamestools.model.IntentTags
-import com.example.boardgamestools.model.listViewComponents.PlayerListAdapter
-import com.example.boardgamestools.model.listViewComponents.RecyclerClickInterface
+import com.example.boardgamestools.model.utilities.IntentTags
+import com.example.boardgamestools.model.playerListComponents.PlayerListAdapter
+import com.example.boardgamestools.model.utilities.ListClickInterface
 import com.example.boardgamestools.model.roomData.PlayerEntity
+import com.example.boardgamestools.model.utilities.Games
 import com.example.boardgamestools.viewmodel.PlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class Players : AppCompatActivity() , RecyclerClickInterface {
+class Players : AppCompatActivity() , ListClickInterface {
     private lateinit var binding : ActivityNewPlayerBinding
 
     private val playerViewModel : PlayerViewModel by viewModels()
@@ -28,16 +29,12 @@ class Players : AppCompatActivity() , RecyclerClickInterface {
         binding = ActivityNewPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var gameToBePlayed : String? = null   // Contains the name of the game to be played
+        var gameId : Int? = null   // Contains the name of the game to be played
 
         // Modify the name of the Start Game Button
         if(intent.hasExtra(IntentTags.GAME.toStr)){
-            gameToBePlayed = intent.getStringExtra(IntentTags.GAME.toStr)
-            val startGameButtonName : String = if (gameToBePlayed!=null){
-                "Start $gameToBePlayed"
-            } else {
-                "Home"
-            }
+            gameId = intent.getIntExtra(IntentTags.GAME.toStr,-1)
+            val startGameButtonName = "Start ${Games.listOfGames[gameId].name}"
             binding.startGameButton.text = startGameButtonName
         }
 
@@ -67,15 +64,10 @@ class Players : AppCompatActivity() , RecyclerClickInterface {
         // Start Game Button on click configuration and the game selector
         binding.startGameButton.setOnClickListener {
             when {
-                gameToBePlayed != null -> {
+                gameId != null && gameId >= 0 -> {
                     // ----- Game selector
-                    when (gameToBePlayed){
-                        IntentTags.TRIOMINO.toStr -> {
-                            finish()
-                            startActivity(Intent(this, Triomino::class.java))
-                        }
-                        else -> finish()
-                    }
+                    finish()
+                    startActivity(Intent(this, Games.listOfGames[gameId].direction))
                 }
                 adapter.itemCount != 0 -> {
                     finish()
