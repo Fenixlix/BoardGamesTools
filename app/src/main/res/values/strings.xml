@@ -1,29 +1,48 @@
 <resources>
+    <!-- General -->
     <string name="app_name">BoardGamesTools</string>
+
+    <!-- Utilities -->
     <string name="tossDice">Toss Dice</string>
     <string name="numOfDice">Number of dices to roll</string>
-    <string name="game_visual_description">Game Visual Description</string>
-    <string name="addButton">Add Player</string>
-    <string name="player_name">Player name…</string>
-    <string name="backToGame">Return to the game</string>
-    <string name="score">Score</string>
-    <string name="new_players">New Players</string>
-    <string name="end_game">End Game</string>
-    <string name="delete">Delete</string>
-    <string name="reset_score">Reset score</string>
+    <string name="game_visual_description">Button with a game to be played</string>
 
-    <string name="no_player_to_reset">There is no players to be reset</string>
+    <!-- GameLogic -->
+    <string name="save">Save</string>
+    <string name="load">Load</string>
+    <string name="game_saved">Game Saved</string>
+    <string name="no_game_saved">No game saved</string>
+    <string name="game_loaded">Game Loaded</string>
+    <string name="pass_turn">Pass Turn</string>
     <string name="round">Round #%1$d</string>
+    <string name="next_round">Next Round</string>
+    <string name="finish_round">Finish Round</string>
+    <string name="round_End">"Round End"</string>
+    <string name="end_game">End Game</string>
+    <string name="backToGame">Return to the game</string>
+
+    <!-- Players -->
+    <string name="new_players">New Players</string>
+    <string name="player_name">Player name…</string>
+    <string name="score">Score</string>
+    <string name="reset_score">Reset score</string>
+    <string name="no_players">"There have to be 1 or more players"</string>
+    <string name="no_player_to_reset">There is no players to be reset</string>
     <string name="confirm_screen_delete">Are you sure to delete the player: %1$s</string>
     <string name="cancel">Cancel</string>
     <string name="modify">Modify</string>
+    <string name="addButton">Add Player</string>
+    <string name="delete">Delete</string>
+
+    <!-- Triomino -->
     <string name="turn_points">Turn Points</string>
     <string name="combo_points">Combo Points</string>
     <string name="punish_points">Punish Points</string>
-    <string name="finish_round">Finish Round</string>
-    <string name="pass_turn">Pass Turn</string>
-    <string name="next_round">Next Round</string>
+    <string name="residual_points">"Residual points: "</string>
+    <string name="round_end_phase">Round #%1$d end phase</string>
     <string name="add">Add</string>
+    <string name="no_extra_points">Missing extra points</string>
+    <string name="players_extra_points">Players Extra points</string>
 
     <string-array name="sp_penalties_options">
         <item>0</item>

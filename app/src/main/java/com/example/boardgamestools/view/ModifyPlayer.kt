@@ -13,14 +13,14 @@ import com.example.boardgamestools.R
 import com.example.boardgamestools.databinding.ActivityModifyPlayerBinding
 import com.example.boardgamestools.model.utilities.IntentTags
 import com.example.boardgamestools.model.roomData.PlayerEntity
-import com.example.boardgamestools.viewmodel.PlayerViewModel
+import com.example.boardgamestools.viewmodel.GameViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ModifyPlayer : AppCompatActivity() {
 
     private lateinit var binding : ActivityModifyPlayerBinding
-    private val playerViewModel : PlayerViewModel  by viewModels()
+    private val gameViewModel : GameViewModel  by viewModels()
 
     private lateinit var toModifyPlayer : PlayerEntity
 
@@ -29,10 +29,10 @@ class ModifyPlayer : AppCompatActivity() {
         binding = ActivityModifyPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        playerViewModel.allPlayers.observe(this, Observer {
+        gameViewModel.allPlayers.observe(this, Observer {
             val id = intent.getIntExtra(IntentTags.PLAYER.toStr,1)
 
-            toModifyPlayer = playerViewModel.getPlayer(id)!!
+            toModifyPlayer = gameViewModel.getPlayer(id)!!
             binding.modPlayerEtPlayerName.setText(toModifyPlayer.name)
             binding.modPlayerEtPlayerScore.setText(toModifyPlayer.score.toString())
         })
@@ -42,7 +42,7 @@ class ModifyPlayer : AppCompatActivity() {
             val score = binding.modPlayerEtPlayerScore.text.toString().toInt()
 
             if (name.isNotEmpty()){
-                playerViewModel.updateScore(toModifyPlayer.copy(
+                gameViewModel.updateScore(toModifyPlayer.copy(
                     name = name,
                     score = score))
             }
@@ -69,7 +69,7 @@ class ModifyPlayer : AppCompatActivity() {
                 confirmationScreenBuilder.setTitle("Delete?")
                 confirmationScreenBuilder.setMessage("Are you sure to delete the player: ${toModifyPlayer.name}")
                 confirmationScreenBuilder.setPositiveButton("Yes", DialogInterface.OnClickListener { _, _ ->
-                    playerViewModel.deletePlayer(toModifyPlayer)
+                    gameViewModel.deletePlayer(toModifyPlayer)
                     finish()
                 })
                 confirmationScreenBuilder.setNegativeButton("No", DialogInterface.OnClickListener { _, _ ->  })

@@ -6,21 +6,17 @@ import com.example.boardgamestools.model.roomData.PlayerEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
+@WorkerThread
 class PlayerRepository @Inject constructor(
     private val playerDAO: PlayerDAO
     ) {
 
     val allPlayers : Flow<List<PlayerEntity>> = playerDAO.getAll()
 
-    suspend fun getPlayer(id: Int) : PlayerEntity {
-        return playerDAO.getPlayer(id)
-    }
-
     suspend fun deleteAll(){
         playerDAO.deleteAll()
     }
 
-    @WorkerThread
     suspend fun insertNewPlayer(player : PlayerEntity){
         playerDAO.insertNewPlayer(player)
     }
@@ -36,6 +32,5 @@ class PlayerRepository @Inject constructor(
     suspend fun resetScores(players : List<PlayerEntity>){
         playerDAO.resetScore(players)
     }
-
 
 }

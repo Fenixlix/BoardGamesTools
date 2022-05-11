@@ -23,6 +23,10 @@ object DbModule {
 
     @Singleton
     @Provides
-    fun providesDao(db: RoomDB) = db.getPlayerDAO()
+    fun providesPlayerDao(db: RoomDB) = db.getPlayerDAO()
+
+    @Singleton
+    @Provides
+    fun providesGameDao(db: RoomDB) = db.getGameDao()
 
 }

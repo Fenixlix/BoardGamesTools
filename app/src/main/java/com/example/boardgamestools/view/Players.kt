@@ -12,24 +12,28 @@ import com.example.boardgamestools.R
 import com.example.boardgamestools.databinding.ActivityNewPlayerBinding
 import com.example.boardgamestools.model.utilities.IntentTags
 import com.example.boardgamestools.model.playerListComponents.PlayerListAdapter
-import com.example.boardgamestools.model.utilities.ListClickInterface
 import com.example.boardgamestools.model.roomData.PlayerEntity
+import com.example.boardgamestools.model.utilities.ListClickInterface
 import com.example.boardgamestools.model.utilities.Games
-import com.example.boardgamestools.viewmodel.PlayerViewModel
+import com.example.boardgamestools.viewmodel.GameViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class Players : AppCompatActivity() , ListClickInterface {
+
+    val gameName = "Players"
+
+    // ----- binding & viewModel ----- //
     private lateinit var binding : ActivityNewPlayerBinding
+    private val gameViewModel : GameViewModel by viewModels()
 
-    private val playerViewModel : PlayerViewModel by viewModels()
-
+    // ----- On Create Method ----- //
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var gameId : Int? = null   // Contains the name of the game to be played
+        var gameId : Int? = null   // Contains the data of the game to be played
 
         // Modify the name of the Start Game Button
         if(intent.hasExtra(IntentTags.GAME.toStr)){
@@ -43,22 +47,21 @@ class Players : AppCompatActivity() , ListClickInterface {
         binding.rvExistingPlayers.adapter = adapter
         binding.rvExistingPlayers.layoutManager = LinearLayoutManager(this)
 
-        // PlayerViewModel Observer of the player list
-        playerViewModel.allPlayers.observe(this) {
+        // GameViewModel Observer of the player list
+        gameViewModel.allPlayers.observe(this) {
             adapter.submitList(it)  // Update the Recycler view
         }
 
         // Add Button click listener, add to the db the new player
         binding.addButton.setOnClickListener {
-            val name = if (binding.etPlayerName.text.isNullOrEmpty()){
+            val name = if (notValidName(binding.etPlayerName.text.toString())){
                     "Player #${adapter.itemCount+1}"
                 }else binding.etPlayerName.text.toString()
 
             val score = if (binding.etPlayerScore.text.isNullOrEmpty()){
                     0
                 }else binding.etPlayerScore.text.toString().toInt()
-
-            playerViewModel.insert(PlayerEntity(id = 0,name = name,score = score))
+            gameViewModel.insert(PlayerEntity(id = 0,name = name,score = score))
         }
 
         // Start Game Button on click configuration and the game selector
@@ -72,10 +75,15 @@ class Players : AppCompatActivity() , ListClickInterface {
                 adapter.itemCount != 0 -> {
                     finish()
                 }
-                else -> Toast.makeText(this, "There is no player to play",
+                else -> Toast.makeText(this, getString(R.string.no_players),
                     Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    // ----- Utility function for validate the name ----- //
+    private fun notValidName( name : String? ) : Boolean {
+        return name.isNullOrEmpty() || name.contains("[,|\n]".toRegex())
     }
 
     // ----- Menu configurations ----- //
@@ -85,10 +93,10 @@ class Players : AppCompatActivity() , ListClickInterface {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
-            R.id.deleteMenuIco -> playerViewModel.deleteAll()
+            R.id.deleteMenuIco -> gameViewModel.deleteAll()
 
-            R.id.resetMenuIco -> playerViewModel.allPlayers.value?.let {
-                playerViewModel.resetScore(it)
+            R.id.resetMenuIco -> gameViewModel.allPlayers.value?.let {
+                gameViewModel.resetScore(it)
             } ?: Toast.makeText(this,getString(R.string.no_player_to_reset),Toast.LENGTH_SHORT).show()
 
         }
