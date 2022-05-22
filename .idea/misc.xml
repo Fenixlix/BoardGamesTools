@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/activity_craps.xml" value="0.1" />
         <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/activity_main.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/activity_new_player.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/activity_triomino.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/game_list_item.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/triomino_card_item.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/triomino_round_end_phase.xml" value="0.12685185185185185" />

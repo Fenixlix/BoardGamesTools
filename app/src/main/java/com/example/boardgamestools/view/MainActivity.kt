@@ -29,7 +29,10 @@ class MainActivity : AppCompatActivity() , ListClickInterface{
     }
 
     override fun onClick(position: Int) {
-        val intent = Intent(this, Games.listOfGames[0].direction)
+        val intent = when (position){
+            2-> Intent(this, Games.listOfGames[position].direction)
+            else -> Intent(this, Games.listOfGames[0].direction)
+        }
         if ( position >0 ) intent.putExtra(IntentTags.GAME.toStr,position)
         startActivity(intent)
     }

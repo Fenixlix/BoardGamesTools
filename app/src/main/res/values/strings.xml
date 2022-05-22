@@ -20,6 +20,11 @@
     <string name="round_End">"Round End"</string>
     <string name="end_game">End Game</string>
     <string name="backToGame">Return to the game</string>
+    <string name="player_lose">Player Lose</string>
+    <string name="player_win">Player Win</string>
+    <string name="game_continue">Game continue</string>
+    <string name="game_start">Game Start</string>
+    <string name="reset_game">Reset Game</string>
 
     <!-- Players -->
     <string name="new_players">New Players</string>
@@ -77,4 +82,14 @@
         <item>80</item>
         <item>120</item>
     </string-array>
+
+    <!-- Craps game -->
+    <string name="take_turn">Take turn</string>
+    <string name="target_score">Target score = %1$d</string>
+    <string name="you_win_if_get7or11">Win if get 7 or 11</string>
+    <string name="you_lose_if_get2or3or12">Lose if get a 2 – 3 – 12</string>
+    <string name="you_win_if_target_score">Win if get the same target score</string>
+    <string name="you_lose_if_get7">Lose if get a 7</string>
+    <string name="blabla_enter_blabla">%1$s\n%2$s</string>
+
 </resources>
