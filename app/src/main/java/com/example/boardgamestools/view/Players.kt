@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boardgamestools.R
 import com.example.boardgamestools.databinding.ActivityNewPlayerBinding
@@ -48,7 +49,7 @@ class Players : AppCompatActivity() , ListClickInterface {
         binding.rvExistingPlayers.layoutManager = LinearLayoutManager(this)
 
         // GameViewModel Observer of the player list
-        gameViewModel.allPlayers.observe(this) {
+        gameViewModel.allPlayers.observe(this){
             adapter.submitList(it)  // Update the Recycler view
         }
 
@@ -95,10 +96,9 @@ class Players : AppCompatActivity() , ListClickInterface {
         when (item.itemId){
             R.id.deleteMenuIco -> gameViewModel.deleteAll()
 
-            R.id.resetMenuIco -> gameViewModel.allPlayers.value?.let {
-                gameViewModel.resetScore(it)
-            } ?: Toast.makeText(this,getString(R.string.no_player_to_reset),Toast.LENGTH_SHORT).show()
-
+            R.id.resetMenuIco -> gameViewModel.allPlayers.let {
+                gameViewModel.resetScore(it.value!!)
+            }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -10,7 +10,7 @@ class GameRepository @Inject constructor(
     private val gameDao: GameDao
 ) {
 
-    suspend fun loadGame(name : String) = gameDao.loadGame(name)
+    fun loadGame(name : String) = gameDao.loadGame(name)
 
     suspend fun saveGame(game : GameDataEntity) = gameDao.saveGame(game)
 }

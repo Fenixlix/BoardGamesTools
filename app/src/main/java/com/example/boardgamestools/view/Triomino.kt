@@ -10,7 +10,7 @@ import android.view.MenuItem
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boardgamestools.R
 import com.example.boardgamestools.databinding.ActivityTriominoBinding
@@ -20,19 +20,18 @@ import com.example.boardgamestools.model.roomData.PlayerEntity
 import com.example.boardgamestools.model.utilities.*
 import com.example.boardgamestools.viewmodel.GameViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class Triomino : AppCompatActivity() , ListClickInterface {
+class Triomino : AppCompatActivity(), ListClickInterface {
 
     val gameName = "Triomino"
 
     // ----- binding & viewModel ----- //
-    private lateinit var binding : ActivityTriominoBinding
-    private val gameViewModel : GameViewModel by viewModels()
+    private lateinit var binding: ActivityTriominoBinding
+    private val gameViewModel: GameViewModel by viewModels()
 
     // ----- Game related variables ----- //
-    private var totalPlayers : List<PlayerEntity> = listOf()
+    private var totalPlayers: List<PlayerEntity> = listOf()
     private var round = 0
     private var turn = 1
     private var firstPlaceScore = 0
@@ -51,32 +50,36 @@ class Triomino : AppCompatActivity() , ListClickInterface {
         binding.rvTriominoPlayers.layoutManager = LinearLayoutManager(this)
 
         // ----- View model configurations -----
-        gameViewModel.allPlayers.observe(this) {
-            it?.let {
-                adapter.submitList(it)
-                totalPlayers = it
-                if (round == 0){
-                    startGame(totalPlayers)
-                    binding.tvRound.text = getString(R.string.round,++round)
-                } else {
-                    val player = totalPlayers[turn-1]
-                    updatePlayer(player)
-                }
+        gameViewModel.allPlayers.observe(this){
+            adapter.submitList(it)
+            totalPlayers = it
+            if (round == 0) {
+                startGame(totalPlayers)
+                binding.tvRound.text = getString(R.string.round, ++round)
+            } else {
+                val player = totalPlayers[turn - 1]
+                updatePlayer(player)
             }
         }
 
         // ----- Spinners configurations -----
-        binding.spPunishPoints.adapter = ArrayAdapter(this,
-                android.R.layout.simple_spinner_item,
-                resources.getStringArray(R.array.sp_penalties_options))
+        binding.spPunishPoints.adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            resources.getStringArray(R.array.sp_penalties_options)
+        )
 
-        binding.spTurnPoints.adapter = ArrayAdapter(this,
-                android.R.layout.simple_spinner_item,
-                resources.getStringArray(R.array.sp_turn_options))
+        binding.spTurnPoints.adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            resources.getStringArray(R.array.sp_turn_options)
+        )
 
-        binding.spComboPoints.adapter = ArrayAdapter(this,
-                android.R.layout.simple_spinner_item,
-                resources.getStringArray(R.array.sp_bonus_options))
+        binding.spComboPoints.adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            resources.getStringArray(R.array.sp_bonus_options)
+        )
 
         // ----- Game buttons configurations ----- //
         /* Finish the round and selects the next player to start
@@ -98,34 +101,51 @@ class Triomino : AppCompatActivity() , ListClickInterface {
 
     // ----- Game Menu configurations ----- //
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.game_utilities_menu,menu)
+        menuInflater.inflate(R.menu.game_utilities_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.game_menu_save_ico -> {
-                val gameData = GameDataEntity(gameName,
-                round, turn, "$firstPlaceScore|$secondPlaceScore|$thirdPlaceScore", "")
+                val gameData = GameDataEntity(
+                    gameName = gameName,
+                    round = round,
+                    payerTurn = turn,
+                    gameRanking = "$firstPlaceScore|$secondPlaceScore|$thirdPlaceScore",
+                    extraData = ""
+                )
                 gameViewModel.saveGame(gameData)
-                Toast.makeText(this, getString(R.string.game_saved),Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.game_saved), Toast.LENGTH_SHORT).show()
             }
             R.id.game_menu_load_ico -> {
-                gameViewModel.viewModelScope.launch {
-                    val gameData = gameViewModel.loadGame(gameName)
-                    if (gameData != null) {
-                        round = gameData.round
-                        turn = gameData.payerTurn
-                        val ranking = gameData.gameRanking.split("|")
-                        firstPlaceScore = ranking[0].toInt()
-                        secondPlaceScore = ranking[1].toInt()
-                        thirdPlaceScore = ranking[2].toInt()
-                        val player = totalPlayers[turn - 1]
-                        updatePlayer(player)
-                        binding.tvRound.text = getString(R.string.round,round)
+                val gameData = gameViewModel.loadGame(gameName)
+                lifecycleScope.launchWhenStarted {
+                    gameData.collect {
+                        if (it.isNotEmpty()) {
+                            round = it[0].round
+                            turn = it[0].payerTurn
+                            val ranking = it[0].gameRanking.split("|")
+                            firstPlaceScore = ranking[0].toInt()
+                            secondPlaceScore = ranking[1].toInt()
+                            thirdPlaceScore = ranking[2].toInt()
+                            val player = totalPlayers[turn - 1]
+                            updatePlayer(player)
+                            binding.tvRound.text = getString(R.string.round, round)
+                            Toast.makeText(
+                                applicationContext,
+                                getString(R.string.game_loaded),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                applicationContext,
+                                "No Game Saved for load",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 }
-                Toast.makeText(this, getString(R.string.game_loaded),Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -134,29 +154,37 @@ class Triomino : AppCompatActivity() , ListClickInterface {
 
     // ----- THE GAME FUNCTIONS ----- //
     // Initialize the game screen layout with a random selected player
-    private fun startGame(players : List<PlayerEntity>){
-        if (players.isNotEmpty()){
-            if (players.size > 1){
+    private fun startGame(players: List<PlayerEntity>) {
+        if (players.isNotEmpty()) {
+            if (players.size > 1) {
                 turn = (1..totalPlayers.size).random()
             }
-            val player = players[turn-1]
+            val player = players[turn - 1]
             updatePlayer(player)
         }
     }
+
     // Refresh the data of the active player in the screen
-    private fun updatePlayer(player: PlayerEntity){
+    private fun updatePlayer(player: PlayerEntity) {
         binding.tvCurrentPlayerName.text = player.name
         binding.tvCurrentPlayerScore.text = player.score.toString()
-        val positionGraf = TriominoRanks.getPosition(firstPlaceScore,secondPlaceScore,thirdPlaceScore,player.score).positionGraf
+        val positionGraf = TriominoRanks.getPosition(
+            firstPlaceScore,
+            secondPlaceScore,
+            thirdPlaceScore,
+            player.score
+        ).positionGraf
         binding.ivRanking.setImageResource(positionGraf)
     }
+
     // Finish the turn for the actual player, reset the spinners and update the scores
-    private fun endTurn(extraScore :Int = 0, nextTurn : Int = (turn-1)){
+    private fun endTurn(extraScore: Int = 0, nextTurn: Int = (turn - 1)) {
         val negativePoints = binding.spPunishPoints.selectedItem.toString().toInt()
         val positivePoints = binding.spTurnPoints.selectedItem.toString().toInt()
         val bonusPoints = binding.spComboPoints.selectedItem.toString().toInt()
 
-        val newScore = totalPlayers[nextTurn].score  + positivePoints + bonusPoints - negativePoints + extraScore
+        val newScore =
+            totalPlayers[nextTurn].score + positivePoints + bonusPoints - negativePoints + extraScore
         updateRanking(newScore)
         gameViewModel.updateScore(totalPlayers[nextTurn].copy(score = newScore))
 
@@ -164,49 +192,55 @@ class Triomino : AppCompatActivity() , ListClickInterface {
         binding.spTurnPoints.setSelection(0)
         binding.spComboPoints.setSelection(0)
     }
+
     // Update the ranking values for the firs, second, third, and no rank player
-    private fun updateRanking(score : Int){
+    private fun updateRanking(score: Int) {
         when {
-            score>= firstPlaceScore -> {
+            score >= firstPlaceScore -> {
                 firstPlaceScore = score
             }
-            score>= secondPlaceScore -> {
+            score >= secondPlaceScore -> {
                 secondPlaceScore = score
             }
-            score>= thirdPlaceScore -> {
+            score >= thirdPlaceScore -> {
                 thirdPlaceScore = score
             }
         }
     }
+
     // Move the turn to the next player to play
-    private fun nextTurn(){
-        turn ++
-        if(turn>totalPlayers.size){
+    private fun nextTurn() {
+        turn++
+        if (turn > totalPlayers.size) {
             turn = 1
         }
     }
+
     // Select the lowest score player to be the first player to play in the next round
-    private fun nextRoundFirstTurn(roundFinisher : Int){
+    private fun nextRoundFirstTurn(roundFinisher: Int) {
         var smallestScore = firstPlaceScore
         totalPlayers.forEach { player ->
             updateRanking(player.score)
-            if(player.score<=smallestScore && player.id != roundFinisher+1){
+            if (player.score <= smallestScore && player.id != roundFinisher + 1) {
                 smallestScore = player.score
-                turn = player.id
+                turn = totalPlayers.indexOf(player)+1
             }
         }
     }
+
     // Open an alert dialog for the residual points of the different players and start the new round
-    private fun restPiecesScoreMessage(){
-        val extraPoints : ArrayList<Int> = ArrayList()
+    private fun restPiecesScoreMessage() {
+        val extraPoints: ArrayList<Int> = ArrayList()
         var total = 0
-        val titleText = getString(R.string.round_end_phase,round)
+        val titleText = getString(R.string.round_end_phase, round)
         var message = getString(R.string.residual_points)
 
         val alertDialogBuilder = AlertDialog.Builder(this)
         val view = LayoutInflater.from(this)
-            .inflate(R.layout.triomino_round_end_phase,
-                findViewById(R.id.triomino_ad_container))
+            .inflate(
+                R.layout.triomino_round_end_phase,
+                findViewById(R.id.triomino_ad_container)
+            )
         alertDialogBuilder.setView(view)
 
         val tvTitle = view.findViewById<TextView>(R.id.tv_alertD_Title)
@@ -220,18 +254,18 @@ class Triomino : AppCompatActivity() , ListClickInterface {
         val alertDialog = alertDialogBuilder.create()
         etPoints.hint = getString(R.string.players_extra_points)
 
-        btnAdd.setOnClickListener{
+        btnAdd.setOnClickListener {
             if (etPoints.text.isNotEmpty()) {
                 message += "${etPoints.text} | "
                 tvMessage.text = message
                 extraPoints.add(etPoints.text.toString().toInt())
                 etPoints.text.clear()
             } else {
-                Toast.makeText(this, getString(R.string.no_extra_points),Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.no_extra_points), Toast.LENGTH_SHORT).show()
             }
         }
 
-        btnFinishRound.setOnClickListener{
+        btnFinishRound.setOnClickListener {
             if (extraPoints.isNotEmpty()) {
                 extraPoints.forEach {
                     total += it
@@ -243,11 +277,11 @@ class Triomino : AppCompatActivity() , ListClickInterface {
                 Toast.makeText(this, getString(R.string.round_End), Toast.LENGTH_LONG).show()
                 alertDialog.dismiss()
             } else {
-                Toast.makeText(this, getString(R.string.no_extra_points),Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.no_extra_points), Toast.LENGTH_SHORT).show()
             }
         }
 
-        if (alertDialog.window != null){
+        if (alertDialog.window != null) {
             alertDialog.window?.setBackgroundDrawable(ColorDrawable(0))
         }
         alertDialog.show()
