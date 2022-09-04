@@ -41,13 +41,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
+        android:contentDescription="A dice"
         app:layout_constraintBottom_toBottomOf="@+id/craps_dice1"
-        app:layout_constraintStart_toEndOf="@+id/craps_dice1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/craps_dice1"
-        app:srcCompat="@drawable/d6"
-        android:contentDescription="A dice" />
+        app:srcCompat="@drawable/d6" />
 
     <ImageView
         android:id="@+id/craps_dice1"
@@ -57,7 +57,7 @@
         android:layout_marginTop="88dp"
         app:layout_constraintBottom_toTopOf="@+id/craps_tv_Score"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.33"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/craps_tv_win_lose"
         app:srcCompat="@drawable/d1" />

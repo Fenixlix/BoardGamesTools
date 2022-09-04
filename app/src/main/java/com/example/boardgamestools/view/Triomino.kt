@@ -65,19 +65,19 @@ class Triomino : AppCompatActivity(), ListClickInterface {
         // ----- Spinners configurations -----
         binding.spPunishPoints.adapter = ArrayAdapter(
             this,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_dropdown_item_layout,
             resources.getStringArray(R.array.sp_penalties_options)
         )
 
         binding.spTurnPoints.adapter = ArrayAdapter(
             this,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_dropdown_item_layout,
             resources.getStringArray(R.array.sp_turn_options)
         )
 
         binding.spComboPoints.adapter = ArrayAdapter(
             this,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_dropdown_item_layout,
             resources.getStringArray(R.array.sp_bonus_options)
         )
 

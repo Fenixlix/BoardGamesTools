@@ -16,10 +16,4 @@ class ManyCounters : AppCompatActivity() {
         setContentView(binding.root)
 
     }
-
-    // todo: Hacer una rama en git para añadir los cambios
-    // todo: Realizar el diseño de la pantalla de los contadores
-    // todo: Realizar la coneccion viewModel para los mismos
-    // todo: Considero que no va a ser necesario tener un modelo de datos pero hay que pensarlo
-    // todo: probar la app y hacer mejoras.
 }

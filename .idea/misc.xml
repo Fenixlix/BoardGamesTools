@@ -7,12 +7,16 @@
         <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/activity_main.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/activity_new_player.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/activity_triomino.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/custom_drop_item_layout.xml" value="0.2234375" />
+        <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/custom_dropdown_item_layout.xml" value="0.168359375" />
         <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/game_list_item.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/player_list_item.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/triomino_card_item.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/layout/triomino_round_end_phase.xml" value="0.12685185185185185" />
         <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/menu/game_utilities_menu.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/menu/games_menu.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Felix/AndroidStudioProjects/BoardGamesTools/app/src/main/res/menu/new_player_menu.xml" value="0.13518518518518519" />
+        <entry key="..\:/Users/Felix/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.22447916666666667" />
       </map>
     </option>
   </component>
