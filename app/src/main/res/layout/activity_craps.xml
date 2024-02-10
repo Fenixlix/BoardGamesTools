@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.Craps"
-    android:background="@color/grey">
+    android:background="@color/grey"
+    tools:context=".view.Craps">
 
     <TextView
         android:id="@+id/craps_tv_win_lose"
@@ -28,20 +28,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        tools:text="bla bla bla bla"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/craps_dice1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/craps_tv_win_lose" />
+        app:layout_constraintTop_toBottomOf="@+id/craps_tv_win_lose"
+        tools:text="bla bla bla bla" />
 
     <ImageView
         android:id="@+id/craps_dice2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:contentDescription="A dice"
+        android:contentDescription="@string/dice_description"
         app:layout_constraintBottom_toBottomOf="@+id/craps_dice1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.75"
@@ -55,6 +55,7 @@
         android:layout_height="wrap_content"
 
         android:layout_marginTop="88dp"
+        android:contentDescription="@string/dice_description"
         app:layout_constraintBottom_toTopOf="@+id/craps_tv_Score"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
@@ -67,8 +68,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
-        android:textSize="24sp"
         android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/craps_btn_toss_dices"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -81,11 +82,12 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:text="@string/take_turn"
+        android:textColor="@color/accent"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

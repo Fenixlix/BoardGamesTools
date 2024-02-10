@@ -10,7 +10,9 @@ import android.view.MenuItem
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boardgamestools.R
 import com.example.boardgamestools.databinding.ActivityTriominoBinding
@@ -20,6 +22,7 @@ import com.example.boardgamestools.model.roomData.PlayerEntity
 import com.example.boardgamestools.model.utilities.*
 import com.example.boardgamestools.viewmodel.GameViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class Triomino : AppCompatActivity(), ListClickInterface {
@@ -50,7 +53,7 @@ class Triomino : AppCompatActivity(), ListClickInterface {
         binding.rvTriominoPlayers.layoutManager = LinearLayoutManager(this)
 
         // ----- View model configurations -----
-        gameViewModel.allPlayers.observe(this){
+        gameViewModel.allPlayers.observe(this) {
             adapter.submitList(it)
             totalPlayers = it
             if (round == 0) {
@@ -120,35 +123,36 @@ class Triomino : AppCompatActivity(), ListClickInterface {
             }
             R.id.game_menu_load_ico -> {
                 val gameData = gameViewModel.loadGame(gameName)
-                lifecycleScope.launchWhenStarted {
-                    gameData.collect {
-                        if (it.isNotEmpty()) {
-                            round = it[0].round
-                            turn = it[0].payerTurn
-                            val ranking = it[0].gameRanking.split("|")
-                            firstPlaceScore = ranking[0].toInt()
-                            secondPlaceScore = ranking[1].toInt()
-                            thirdPlaceScore = ranking[2].toInt()
-                            val player = totalPlayers[turn - 1]
-                            updatePlayer(player)
-                            binding.tvRound.text = getString(R.string.round, round)
-                            Toast.makeText(
-                                applicationContext,
-                                getString(R.string.game_loaded),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        } else {
-                            Toast.makeText(
-                                applicationContext,
-                                "No Game Saved for load",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                lifecycleScope.launch {
+                    repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+                        gameData.collect {
+                            if (it.isNotEmpty()) {
+                                round = it[0].round
+                                turn = it[0].payerTurn
+                                val ranking = it[0].gameRanking.split("|")
+                                firstPlaceScore = ranking[0].toInt()
+                                secondPlaceScore = ranking[1].toInt()
+                                thirdPlaceScore = ranking[2].toInt()
+                                val player = totalPlayers[turn - 1]
+                                updatePlayer(player)
+                                binding.tvRound.text = getString(R.string.round, round)
+                                Toast.makeText(
+                                    applicationContext,
+                                    getString(R.string.game_loaded),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
+                                Toast.makeText(
+                                    applicationContext,
+                                    getString(R.string.no_game_saved),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
                     }
                 }
             }
         }
-
         return super.onOptionsItemSelected(item)
     }
 
@@ -223,7 +227,7 @@ class Triomino : AppCompatActivity(), ListClickInterface {
             updateRanking(player.score)
             if (player.score <= smallestScore && player.id != roundFinisher + 1) {
                 smallestScore = player.score
-                turn = totalPlayers.indexOf(player)+1
+                turn = totalPlayers.indexOf(player) + 1
             }
         }
     }
@@ -261,7 +265,8 @@ class Triomino : AppCompatActivity(), ListClickInterface {
                 extraPoints.add(etPoints.text.toString().toInt())
                 etPoints.text.clear()
             } else {
-                Toast.makeText(this, getString(R.string.no_extra_points), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.no_extra_points), Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -277,7 +282,8 @@ class Triomino : AppCompatActivity(), ListClickInterface {
                 Toast.makeText(this, getString(R.string.round_End), Toast.LENGTH_LONG).show()
                 alertDialog.dismiss()
             } else {
-                Toast.makeText(this, getString(R.string.no_extra_points), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.no_extra_points), Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 

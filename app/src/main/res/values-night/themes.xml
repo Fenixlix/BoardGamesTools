@@ -1,10 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.BoardGamesTools" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
-        <item name="colorAccent">@color/teal_200</item>
-        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/nightPrimary</item>
+        <item name="colorOnPrimary">@color/onNightPrimary</item>
+        <item name="colorPrimaryDark">@color/nightPrimaryDark</item>
+        <item name="colorAccent">@color/nightAccent</item>
+        <item name="android:colorBackground">@color/nightBackground</item>
+        <item name="colorOnBackground">@color/nightPrimary</item>
+        <item name="colorButtonNormal">@color/nightPrimary</item>
     </style>
 </resources>

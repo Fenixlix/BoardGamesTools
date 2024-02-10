@@ -64,14 +64,14 @@ class ModifyPlayer : AppCompatActivity() {
         when (item.itemId) {
             R.id.deleteMenuIco -> {
                 val confirmationScreenBuilder = AlertDialog.Builder(this)
-                confirmationScreenBuilder.setTitle("Delete?")
-                confirmationScreenBuilder.setMessage("Are you sure to delete the player: ${toModifyPlayer.name}")
-                confirmationScreenBuilder.setPositiveButton("Yes") { _, _ ->
+                confirmationScreenBuilder.setTitle(getString(R.string.delete_dialog_title))
+                confirmationScreenBuilder.setMessage(getString(R.string.confirm_player_delete,toModifyPlayer.name))
+                confirmationScreenBuilder.setPositiveButton(getString(R.string.delete_dialog_yes)) { _, _ ->
                     gameViewModel.allPlayers.removeObserver{}
                     gameViewModel.deletePlayer(toModifyPlayer)
                     finish()
                 }
-                confirmationScreenBuilder.setNegativeButton("No") { _, _ -> }
+                confirmationScreenBuilder.setNegativeButton(getString(R.string.delete_dialog_no)) { _, _ -> }
                 confirmationScreenBuilder.create().show()
             }
         }

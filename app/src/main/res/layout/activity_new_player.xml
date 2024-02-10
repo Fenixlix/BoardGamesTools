@@ -22,9 +22,8 @@
     <EditText
         android:id="@+id/et_playerName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/player_name"
@@ -35,10 +34,9 @@
     <EditText
         android:id="@+id/et_playerScore"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:ems="10"
         android:hint="@string/score"
         android:inputType="numberDecimal"
