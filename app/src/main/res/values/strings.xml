@@ -98,4 +98,10 @@
     <string name="triomino_ranking_image_description">Image to show the current player position</string>
     <string name="dice_description">A dice</string>
 
+    <!-- Chess Clock -->
+    <string name="checkmate">Checkmate !</string>
+    <string name="player_1">Player 1</string>
+    <string name="player_2">Player 2</string>
+
+
 </resources>

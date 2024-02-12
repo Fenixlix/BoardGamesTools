@@ -27,8 +27,6 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class Triomino : AppCompatActivity(), ListClickInterface {
 
-    val gameName = "Triomino"
-
     // ----- binding & viewModel ----- //
     private lateinit var binding: ActivityTriominoBinding
     private val gameViewModel: GameViewModel by viewModels()
@@ -112,7 +110,7 @@ class Triomino : AppCompatActivity(), ListClickInterface {
         when (item.itemId) {
             R.id.game_menu_save_ico -> {
                 val gameData = GameDataEntity(
-                    gameName = gameName,
+                    gameName = "Triomino",
                     round = round,
                     payerTurn = turn,
                     gameRanking = "$firstPlaceScore|$secondPlaceScore|$thirdPlaceScore",
@@ -122,7 +120,7 @@ class Triomino : AppCompatActivity(), ListClickInterface {
                 Toast.makeText(this, getString(R.string.game_saved), Toast.LENGTH_SHORT).show()
             }
             R.id.game_menu_load_ico -> {
-                val gameData = gameViewModel.loadGame(gameName)
+                val gameData = gameViewModel.loadGame("Triomino")
                 lifecycleScope.launch {
                     repeatOnLifecycle(state = Lifecycle.State.STARTED) {
                         gameData.collect {

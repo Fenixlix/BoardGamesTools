@@ -13,9 +13,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class Craps : AppCompatActivity() {
 
-    val gameName = "Craps"
-
-    // Accessing the view component without data binding
+    // Creating the view component to be initialize later
     private lateinit var btn : Button
     private lateinit var winLoseTxt : TextView
     private lateinit var targetScoreTxt : TextView

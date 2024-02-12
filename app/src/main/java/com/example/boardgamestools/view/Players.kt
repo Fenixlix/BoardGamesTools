@@ -22,8 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class Players : AppCompatActivity() , ListClickInterface {
 
-    val gameName = "Players"
-
     // ----- binding & viewModel ----- //
     private lateinit var binding : ActivityNewPlayerBinding
     private val gameViewModel : GameViewModel by viewModels()

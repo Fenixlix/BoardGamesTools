@@ -13,7 +13,7 @@
             android:name=".view.Craps"
             android:exported="false" />
         <activity
-            android:name=".view.ManyCounters"
+            android:name=".view.ChessClock"
             android:exported="false" />
         <activity
             android:name=".view.ModifyPlayer"
