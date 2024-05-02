@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <application
-        android:name=".model.BGTApp"
+        android:name=".core.BGTApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,22 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BoardGamesTools" >
         <activity
-            android:name=".view.Craps"
-            android:exported="false" />
-        <activity
-            android:name=".view.ChessClock"
-            android:exported="false" />
-        <activity
-            android:name=".view.ModifyPlayer"
-            android:exported="false" />
-        <activity
-            android:name=".view.Triomino"
-            android:exported="false" />
-        <activity
-            android:name=".view.Players"
-            android:exported="false" />
-        <activity
-            android:name=".view.MainActivity"
+            android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

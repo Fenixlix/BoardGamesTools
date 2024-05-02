@@ -2,36 +2,28 @@
     <!-- General -->
     <string name="app_name">BoardGamesTools</string>
 
-    <!-- Utilities -->
-    <string name="tossDice"> Toss Dice </string>
-    <string name="numOfDice"> Number of dices to roll </string>
-    <string name="game_visual_description">Button with a game to be played</string>
-
     <!-- GameLogic -->
-    <string name="save"> Save </string>
-    <string name="load"> Load </string>
-    <string name="game_saved"> Game Saved </string>
-    <string name="no_game_saved"> No game saved </string>
-    <string name="game_loaded"> Game Loaded </string>
-    <string name="pass_turn"> Pass Turn </string>
-    <string name="round"> Round #%1$d </string>
-    <string name="next_round"> Next Round </string>
-    <string name="finish_round"> Finish Round </string>
+    <string name="pass_turn_btn"> Pass Turn </string>
+    <string name="round">" Round \n#%1$d"</string>
+    <string name="next_round_btn"> Next Round </string>
+    <string name="finish_round_btn"> Finish Round </string>
     <string name="round_End"> "Round End" </string>
-    <string name="end_game"> End Game </string>
-    <string name="backToGame"> Return to the game </string>
+    <string name="end_game_btn"> End Game </string>
     <string name="player_lose"> Player Lose </string>
     <string name="player_win"> Player Win </string>
     <string name="game_continue"> Game continue </string>
-    <string name="game_start"> Game Start </string>
-    <string name="reset_game"> Reset Game </string>
+    <string name="game_start_btn"> Game Start </string>
+    <string name="reset_game_btn"> Reset Game </string>
+    <string name="continue_or_new_game">Continue or new game?</string>
+    <string name="continue_game_btn">Continue</string>
+    <string name="new_game_btn">New Game</string>
 
     <!-- Players -->
     <string name="new_players"> New Players </string>
     <string name="player_name"> Player name… </string>
     <string name="score"> Score </string>
     <string name="reset_score"> Reset score </string>
-    <string name="no_players">"There have to be 1 or more players"</string>
+    <string name="no_players">"No players"</string>
     <string name="no_player_to_reset">"There is no players to be reset"</string>
     <string name="delete_dialog_title">" Delete ?"</string>
     <string name="confirm_player_delete"> Are you sure to delete the player: %1$s </string>
@@ -39,69 +31,41 @@
     <string name="delete_dialog_no"> No </string>
     <string name="cancel"> Cancel </string>
     <string name="modify"> Modify </string>
-    <string name="addButton"> Add Player </string>
+    <string name="add_players_btn"> Add Players </string>
     <string name="delete"> Delete </string>
 
     <!-- Triomino -->
-    <string name="turn_points">Turn Points</string>
-    <string name="combo_points">Combo Points</string>
-    <string name="punish_points">Punish Points</string>
-    <string name="residual_points">"Residual points: "</string>
-    <string name="round_end_phase">Round #%1$d end phase</string>
-    <string name="add"> Add </string>
-    <string name="no_extra_points"> Missing extra points </string>
-    <string name="players_extra_points"> Players Extra points </string>
-
-    <string-array name="sp_penalties_options">
-        <item>0</item>
-        <item>5</item>
-        <item>10</item>
-        <item>25</item>
-    </string-array>
-
-    <string-array name="sp_turn_options">
-        <item>"0"</item>
-        <item>"1"</item>
-        <item>"2"</item>
-        <item>"3"</item>
-        <item>"4"</item>
-        <item>"5"</item>
-        <item>"6"</item>
-        <item>"7"</item>
-        <item>"8"</item>
-        <item>"9"</item>
-        <item>"10"</item>
-        <item>"11"</item>
-        <item>"12"</item>
-        <item>"13"</item>
-        <item>"14"</item>
-        <item>"15"</item>
-    </string-array>
-
-    <string-array name="sp_bonus_options">
-        <item>0</item>
-        <item>30</item>
-        <item>40</item>
-        <item>50</item>
-        <item>80</item>
-        <item>120</item>
-    </string-array>
+    <string name="turn_points_drop_box">Score</string>
+    <string name="bonus_points_drop_box">Bonus</string>
+    <string name="penalty_points_drop_box">Penalty</string>
+    <string name="extra_points_tf">Extra points</string>
+    <string name="round_n_end_phase">Round #%1$d\n\nEnd phase</string>
+    <string name="triomino_ranking_image_description">Image with the current player position</string>
+    <string name="add_btn"> Add </string>
+    <string name="add_extra_points_tf"> Add extra points… </string>
+    <string name="total_extra_points_tf"> Total extra points </string>
 
     <!-- Craps game -->
-    <string name="take_turn"> Take turn !</string>
+    <string name="take_turn"> Toss dices !</string>
     <string name="target_score"> Target score = %1$d </string>
-    <string name="you_win_if_get7or11"> Win if get 7 or 11 </string>
-    <string name="you_lose_if_get2or3or12"> Lose if get a 2 – 3 – 12 </string>
-    <string name="you_win_if_target_score"> Win if get the same target score </string>
-    <string name="you_lose_if_get7"> Lose if get a 7 </string>
-    <string name="blabla_enter_blabla">%1$s\n%2$s</string>
-    <string name="triomino_ranking_image_description">Image to show the current player position</string>
+    <string name="craps_first_turn_rules">"Win if get 7 or 11 \n\n Lose if get a 2 – 3 – 12"</string>
+    <string name="craps_rest_game_rules">"Win if get the same\n target score \nLose if get a 7 "</string>
     <string name="dice_description">A dice</string>
 
     <!-- Chess Clock -->
     <string name="checkmate">Checkmate !</string>
-    <string name="player_1">Player 1</string>
-    <string name="player_2">Player 2</string>
 
-
+    <!-- Tools Games List and descriptions-->
+    <string name="triomino">Triomino</string>
+    <string name="triomino_td">A set of tools for help with the score control and generation in a triomino game</string>
+    <string name="coin_toss">Coin Toss</string>
+    <string name="coin_toss_td">A virtual coin to be toss any time</string>
+    <string name="chess_clock">Chess Clock</string>
+    <string name="chess_clock_td">A turn controlled clock to the chess players</string>
+    <string name="characters">Characters</string>
+    <string name="characters_td">Set of tools to create a character characteristics sheet</string>
+    <string name="craps">Craps</string>
+    <string name="craps_td">The dice game of craps</string>
+    <string name="point_counters">Points Counter</string>
+    <string name="point_counters_td">Tools for managing different sets of counters for many games</string>
 </resources>

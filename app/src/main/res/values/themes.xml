@@ -1,12 +1,7 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.BoardGamesTools" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorOnPrimary">@color/onPrimary</item>
-        <item name="colorPrimaryDark">@color/primaryDark</item>
-        <item name="colorAccent">@color/accent</item>
-        <item name="android:colorBackground">@color/background</item>
-        <item name="colorOnBackground">@color/primary</item>
-        <item name="colorButtonNormal">@color/primary</item>
-    </style>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<style name="Theme.BoardGamesTools" parent="android:Theme.Material.Light.NoActionBar">
+    <item name="android:statusBarColor">@color/primary</item>
+</style>
 </resources>

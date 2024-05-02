@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="grey">#FF555555</color>
-    <color name="green">#26A82B</color>
-
-    <color name="background">#FFFFFF</color>
-    <color name="primary">#553287</color>
-    <color name="onPrimary">#DFC8FF</color>
-    <color name="primaryDark">#322451</color>
-    <color name="accent">#DFD04E</color>
-
-    <color name="nightBackground">#303030</color>
-    <color name="nightPrimary">#C6A4F8</color>
-    <color name="onNightPrimary">#000000</color>
-    <color name="nightPrimaryDark">#AA84FF</color>
-    <color name="nightAccent">#FFF3DA</color>
+    <color name="primary">#FFDBC66E</color>
 
 </resources>
