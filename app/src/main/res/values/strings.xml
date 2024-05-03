@@ -55,6 +55,11 @@
     <!-- Chess Clock -->
     <string name="checkmate">Checkmate !</string>
 
+    <!-- Coin toss -->
+    <string name="o_coin">coin head</string>
+    <string name="x_coin">coin tail</string>
+    <string name="coin_n">Coin #%1$d</string>
+
     <!-- Tools Games List and descriptions-->
     <string name="triomino">Triomino</string>
     <string name="triomino_td">A set of tools for help with the score control and generation in a triomino game</string>

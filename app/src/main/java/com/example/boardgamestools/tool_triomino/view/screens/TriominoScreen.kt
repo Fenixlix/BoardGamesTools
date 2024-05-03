@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,18 +29,18 @@ fun TriominoScreenRoot(
     viewModel: TriominoViewModel = hiltViewModel()
 ) {
     TriominoScreen(
-        screenState = viewModel.state.collectAsState(),
+        screenState = viewModel.state,
         onEvent = viewModel::onEvent
     )
 }
 
 @Composable
 private fun TriominoScreen(
-    screenState: State<TriominoState>,
+    screenState: TriominoState,
     onEvent: (TriominoEvent) -> Unit
 ) {
 
-    val state = screenState.value
+    val state = screenState
 
     val sufficientPlayers by remember(key1 = state.players.size) {
         mutableStateOf(state.players.size > 1)

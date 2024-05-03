@@ -12,6 +12,7 @@ import com.example.boardgamestools.core.presentation.theme.BGTAppTheme
 import com.example.boardgamestools.main_screen.view.screens.HomeScreen
 import com.example.boardgamestools.main_screen.view.screens.SplashScreen
 import com.example.boardgamestools.tool_chess_clock.view.screens.ChessClockScreenRoot
+import com.example.boardgamestools.tool_coin_toss.view.screens.CoinTossScreenRoot
 import com.example.boardgamestools.tool_game_craps.view.screens.CrapsScreenRoot
 import com.example.boardgamestools.tool_triomino.view.screens.TriominoScreenRoot
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +53,7 @@ class MainActivity : ComponentActivity() {
                             CrapsScreenRoot()
                         }
                         composable(route = GameTools.COIN_TOSS.name) {
-                            // todo : make compose screen and components
+                            CoinTossScreenRoot()
                         }
                         composable(route = GameTools.CHARACTERS.name) {
                             // todo : make compose screen and components

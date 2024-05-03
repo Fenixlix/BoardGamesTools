@@ -1,5 +1,8 @@
 package com.example.boardgamestools.tool_triomino.viewmodel
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -13,11 +16,7 @@ import com.example.boardgamestools.tool_triomino.model.TriominoRanking
 import com.example.boardgamestools.tool_triomino.model.TriominoRanks
 import com.example.boardgamestools.tool_triomino.model.TriominoState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,13 +30,8 @@ class TriominoViewModel @Inject constructor(
     private val turnKey = intPreferencesKey("turn")
     private var initOneTimeFlag = true
 
-    private val _state = MutableStateFlow(TriominoState())
-
-    val state = _state.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        initialValue = TriominoState()
-    )
+    var state by mutableStateOf(TriominoState())
+        private set
 
     init {
         viewModelScope.launch {
@@ -46,21 +40,20 @@ class TriominoViewModel @Inject constructor(
                     calculateRanking(players = newList)
                     initOneTimeFlag = false
                 }
-                _state.update {
-                    it.copy(
-                        players = newList.map { player ->
-                            player.copy(
-                                rank = TriominoRanks.getPlace(
-                                    _state.value.ranking,
-                                    player.score
-                                )
+                state = state.copy(
+                    players = newList.map { player ->
+                        player.copy(
+                            rank = TriominoRanks.getPlace(
+                                state.ranking,
+                                player.score
                             )
-                        }
-                    )
-                }
+                        )
+                    }
+                )
             }
         }
     }
+
 
     fun onEvent(event: TriominoEvent) {
         when (event) {
@@ -77,87 +70,84 @@ class TriominoViewModel @Inject constructor(
             }
 
             is TriominoEvent.PassTurn -> {
-                passPlayerTurn(_state.value.players[_state.value.turn])
+                passPlayerTurn(state.players[state.turn])
                 nextTurn()
                 saveTurn()
             }
 
             is TriominoEvent.FinishRound -> {
-                passPlayerTurn(_state.value.players[_state.value.turn], extra = event.extra)
+                passPlayerTurn(state.players[state.turn], extra = event.extra)
                 nextRound()
                 saveRound()
+                state = state.copy(endRoundDialog = state.endRoundDialog.not())
             }
 
             TriominoEvent.TogglePlayersDialog -> {
-                _state.update { it.copy(addPlayerDialog = _state.value.addPlayerDialog.not()) }
+                state = state.copy(addPlayerDialog = state.addPlayerDialog.not())
             }
 
             TriominoEvent.ToggleEndRoundDialog -> {
-                _state.update { it.copy(endRoundDialog = _state.value.endRoundDialog.not()) }
+                state = state.copy(endRoundDialog = state.endRoundDialog.not())
             }
 
             is TriominoEvent.ScoreSelected -> {
-                _state.update { it.copy(scorePoints = event.score) }
+                state = state.copy(scorePoints = event.score)
             }
 
             is TriominoEvent.BonusSelected -> {
-                _state.update { it.copy(bonusPoints = event.bonus) }
+                state = state.copy(bonusPoints = event.bonus)
             }
 
             is TriominoEvent.PenaltySelected -> {
-                _state.update { it.copy(penaltyPoints = event.penalty) }
+                state = state.copy(penaltyPoints = event.penalty)
             }
         }
     }
 
     // ----- state related functions
     private fun nextTurn() {
-        var nextTurn = _state.value.turn + 1
-        if (nextTurn > _state.value.players.size - 1) {
+        var nextTurn = state.turn + 1
+        if (nextTurn > state.players.size - 1) {
             nextTurn = 0
         }
-        _state.update { it.copy(turn = nextTurn) }
+        state = state.copy(turn = nextTurn)
     }
 
     private fun nextRound() {
         // Select the lowest score player to be the first player to play in the next round
-        var smallestScore = _state.value.ranking.third
+        var smallestScore = state.ranking.third
         var nextTurn = 0
-        _state.value.players.forEachIndexed { index, player ->
+        state.players.forEachIndexed { index, player ->
             if (player.score <= smallestScore) {
                 smallestScore = player.score
                 nextTurn = index
             }
         }
-        _state.update {
-            it.copy(
-                round = _state.value.round + 1,
-                turn = nextTurn
-            )
-        }
+        state = state.copy(
+            round = state.round + 1,
+            turn = nextTurn
+        )
     }
 
     private fun updateRanking(newRanking: TriominoRanking) {
-        _state.update {
-            it.copy(
-                ranking = newRanking,
-                scorePoints = null,
-                bonusPoints = null,
-                penaltyPoints = null
-            )
-        }
+        state = state.copy(
+            ranking = newRanking,
+            scorePoints = null,
+            bonusPoints = null,
+            penaltyPoints = null
+        )
     }
 
     // ----- DataStore related functions
     private fun saveTurn() = viewModelScope.launch {
         dataStore.edit {
-            it[turnKey] = _state.value.turn
+            it[turnKey] = state.turn
         }
     }
 
     private fun saveRound() = viewModelScope.launch {
         dataStore.edit {
-            it[roundKey] = _state.value.round
+            it[roundKey] = state.round
         }
         saveTurn()
     }
@@ -167,19 +157,17 @@ class TriominoViewModel @Inject constructor(
             it[roundKey] = 0
             it[turnKey] = 0
         }
-        _state.update { it.copy(continueOrNewGameDialog = false) }
+        state = state.copy(continueOrNewGameDialog = false)
         playerDAO.deleteAll()
     }
 
     private fun continueGame() = viewModelScope.launch {
         dataStore.data.first { pref ->
-            _state.update {
-                it.copy(
-                    turn = pref[turnKey] ?: 0,
-                    round = pref[roundKey] ?: 0,
-                    continueOrNewGameDialog = false
-                )
-            }
+            state = state.copy(
+                turn = pref[turnKey] ?: 0,
+                round = pref[roundKey] ?: 0,
+                continueOrNewGameDialog = false
+            )
             true
         }
     }
@@ -189,11 +177,7 @@ class TriominoViewModel @Inject constructor(
         players.forEach {
             finalRanking = TriominoRanks.getNewRanking(finalRanking, it.score)
         }
-        _state.update {
-            it.copy(
-                ranking = finalRanking
-            )
-        }
+        state = state.copy(ranking = finalRanking)
     }
 
     // ----- Room related functions -----
@@ -203,14 +187,14 @@ class TriominoViewModel @Inject constructor(
 
     private fun passPlayerTurn(player: TriominoPlayerEntity, extra: Int = 0) =
         viewModelScope.launch {
-            val score = state.value.scorePoints ?: 0
-            val bonus = state.value.bonusPoints ?: 0
-            val penalty = state.value.penaltyPoints ?: 0
+            val score = state.scorePoints ?: 0
+            val bonus = state.bonusPoints ?: 0
+            val penalty = state.penaltyPoints ?: 0
             val newScore =
                 player.score + score + bonus - penalty + extra
 
             val newRanking = TriominoRanks.getNewRanking(
-                ranking = _state.value.ranking,
+                ranking = state.ranking,
                 score = newScore
             )
             updateRanking(newRanking)

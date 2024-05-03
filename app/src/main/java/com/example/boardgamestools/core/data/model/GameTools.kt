@@ -28,21 +28,21 @@ enum class GameTools(val toolData: GameTool) {
         GameTool(
             name = R.string.coin_toss,
             toolDescription = R.string.coin_toss_td,
-            icon = R.drawable.triomino_logo // todo: create and import and change
+            icon = R.drawable.coin_toss_logo
         )
     ),
     POINT_COUNTERS(
         GameTool(
             name = R.string.point_counters,
             toolDescription = R.string.point_counters_td,
-            icon = R.drawable.triomino_logo // todo: create and import and change
+            icon = R.drawable.points_counters_logo
         )
     ),
     CHARACTERS(
         GameTool(
             name = R.string.characters,
             toolDescription = R.string.characters_td,
-            icon = R.drawable.triomino_logo // todo: create and import and change
+            icon = R.drawable.characters_logo
         )
     )
 }
