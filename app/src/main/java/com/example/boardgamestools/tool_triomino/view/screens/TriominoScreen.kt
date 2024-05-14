@@ -14,8 +14,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.boardgamestools.tool_triomino.model.TriominoEvent
 import com.example.boardgamestools.tool_triomino.model.TriominoState
-import com.example.boardgamestools.tool_triomino.view.jet_blocks.ContinueOrNewGameDialog
-import com.example.boardgamestools.tool_triomino.view.jet_blocks.EmptyPlayersList
+import com.example.boardgamestools.core.presentation.jet_blocks.ContinueOrNewGameDialog
+import com.example.boardgamestools.core.presentation.jet_blocks.EmptyPlayersList
 import com.example.boardgamestools.tool_triomino.view.jet_blocks.EndRoundDialog
 import com.example.boardgamestools.tool_triomino.view.jet_blocks.PlayersControls
 import com.example.boardgamestools.tool_triomino.view.jet_blocks.PlayersDialog

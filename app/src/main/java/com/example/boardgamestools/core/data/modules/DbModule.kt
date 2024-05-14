@@ -26,6 +26,10 @@ object DbModule {
     @Provides
     fun providesPlayerDao(db: RoomDB) = db.getTriominoPlayerDAO()
 
+    @Singleton
+    @Provides
+    fun providesPointsPlayerDao(db: RoomDB) = db.getPointsPlayerDao()
+
     private val Context.dataStoreBGT by preferencesDataStore(name = "bgt")
 
     @Singleton

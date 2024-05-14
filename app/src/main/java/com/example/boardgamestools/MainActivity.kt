@@ -14,6 +14,7 @@ import com.example.boardgamestools.main_screen.view.screens.SplashScreen
 import com.example.boardgamestools.tool_chess_clock.view.screens.ChessClockScreenRoot
 import com.example.boardgamestools.tool_coin_toss.view.screens.CoinTossScreenRoot
 import com.example.boardgamestools.tool_game_craps.view.screens.CrapsScreenRoot
+import com.example.boardgamestools.tool_points_counters.view.screens.PointsCounterScreenRoot
 import com.example.boardgamestools.tool_triomino.view.screens.TriominoScreenRoot
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -59,7 +60,7 @@ class MainActivity : ComponentActivity() {
                             // todo : make compose screen and components
                         }
                         composable(route = GameTools.POINT_COUNTERS.name) {
-                            // todo : make compose screen and components
+                            PointsCounterScreenRoot()
                         }
                     }
                 }

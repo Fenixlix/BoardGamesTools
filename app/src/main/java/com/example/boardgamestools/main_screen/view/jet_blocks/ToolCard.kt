@@ -39,7 +39,7 @@ fun ToolCard(
         Box(
             modifier = Modifier
                 .size(150.dp)
-                .padding(16.dp),
+                .padding(12.dp),
             contentAlignment = Alignment.Center
         ) {
             Image(painter = painter, contentDescription = contentDescription)
@@ -54,7 +54,7 @@ fun ToolCard(
                     .padding(8.dp),
                 fontSize = 20.sp,
                 color = MaterialTheme.colorScheme.onPrimary,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Center
             )
         }

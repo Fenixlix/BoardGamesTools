@@ -20,7 +20,13 @@
 
     <!-- Players -->
     <string name="new_players"> New Players </string>
-    <string name="player_name"> Player name… </string>
+    <string name="player_name"> Player name </string>
+    <string name="player_n">Player %1$d</string>
+    <string name="chars_limit">[%1$d/%2$d]</string>
+    <string name="name">Name</string>
+    <string name="points">Points</string>
+    <string name="orientation">Orientation</string>
+    <string name="degrees_range">0~360</string>
     <string name="score"> Score </string>
     <string name="reset_score"> Reset score </string>
     <string name="no_players">"No players"</string>

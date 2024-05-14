@@ -1,4 +1,4 @@
-package com.example.boardgamestools.tool_triomino.view.jet_blocks
+package com.example.boardgamestools.core.presentation.jet_blocks
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
