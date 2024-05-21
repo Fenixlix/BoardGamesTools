@@ -154,7 +154,7 @@ class TriominoViewModel @Inject constructor(
 
     private fun newGame() = viewModelScope.launch {
         dataStore.edit {
-            it[roundKey] = 0
+            it[roundKey] = 1
             it[turnKey] = 0
         }
         state = state.copy(continueOrNewGameDialog = false)
@@ -165,7 +165,7 @@ class TriominoViewModel @Inject constructor(
         dataStore.data.first { pref ->
             state = state.copy(
                 turn = pref[turnKey] ?: 0,
-                round = pref[roundKey] ?: 0,
+                round = pref[roundKey] ?: 1,
                 continueOrNewGameDialog = false
             )
             true
